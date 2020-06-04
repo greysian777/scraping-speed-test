@@ -8,9 +8,11 @@ import (
 	"time"
 
 	"github.com/gocolly/colly"
+	"github.com/pkg/profile"
 )
 
 func main() {
+	defer profile.Start().Stop()
 	content, _ := ioutil.ReadFile("test_links.txt")
 	tempLink := strings.Split(string(content), "\n")
 	var linkArray []string
@@ -22,7 +24,7 @@ func main() {
 
 	var pages []string
 	c := colly.NewCollector(colly.Async())
-	c.Limit(&colly.LimitRule{DomainGlob: "*", Parallelism: 2})
+	//c.Limit(&colly.LimitRule{DomainGlob: "*", Parallelism: 2})
 
 	c.OnHTML("div[class=read__content]", func(e *colly.HTMLElement) {
 		pages = append(pages, e.ChildText("p"))
@@ -34,7 +36,7 @@ func main() {
 	for _, link := range linkArray {
 		c.Visit(link)
 	}
-	c.Wait()
+	//c.Wait()
 	end := time.Now()
 	elapsed := end.Sub(start)
 	fmt.Println(pages)

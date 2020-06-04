@@ -12,6 +12,8 @@ bs4 = "^0.0.1"
 joblib = "^0.15.1"
 tqdm = "^4.46.0"
 snakeviz = "^2.1.0"
+asyncio = "^3.4.3"
+pycurl = "^7.43.0"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.15.0"
